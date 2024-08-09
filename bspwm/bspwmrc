@@ -1,0 +1,37 @@
+#! /bin/sh
+
+##Autostart
+feh --bg-fill ~/Images/night.jpg
+lxpolkit &
+pgrep -x sxhkd > /dev/null || sxhkd &
+nitrogen --restore &
+xrandr --output DP-1 --mode 2560x1440 --rate 165
+bash $HOME/.config/polybar/launch.sh &
+setxkbmap -layout 'us,ru' -option 'grp:win_space_toggle,compose:menu'
+picom &
+
+
+#Single monitor
+bspc monitor -d 1 2 3 4 5 6
+
+##Main settings
+bspc config border_width         2
+bspc config window_gap           10
+bspc config split_ratio          0
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config single_monocle       false
+bspc config focus_follows_pointer true
+
+
+##Color theme (based on Adapta Dark colors)
+bspc config focused_border_color "#00e1ff"
+
+
+#Window rules
+bspc rule -a "SimpleScreenRecorder" state=floating
+bspc rule -a "Pavucontrol" state=floating
+bspc rule -a "Firefox" desktop=^2
+bspc rule -a "Nautilus" desktop=^3
+bspc rule -a "kdenlive" desktop=^5
+bspc rule -a "Gimp" desktop=^6
